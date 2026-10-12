@@ -33,6 +33,7 @@ const STATUS_OPTIONS = [
   'out_for_delivery',
   'delivered',
   'exception',
+  'final_destination',
 ];
 
 const DROPDOWNS = {
@@ -149,10 +150,8 @@ const Home = () => {
   const handleReset = () => {
     if (original) setDraft({ ...original });
   };
-
   /* ---------- RENDER ---------- */
   const keys = Object.keys(draft);
-
   return (
     <div style={styles.page}>
       <div style={styles.wrap}>
@@ -160,7 +159,6 @@ const Home = () => {
         <p style={styles.sub}>
           Single-row editor · reads and updates in place
         </p>
-
         <div style={styles.toolbar}>
           <button
             onClick={fetchRow}
@@ -170,7 +168,6 @@ const Home = () => {
             {loading ? 'Refreshing…' : 'Refresh'}
           </button>
         </div>
-
         {error && <div style={styles.error}>{error}</div>}
         {message && <div style={styles.success}>{message}</div>}
 
@@ -206,7 +203,6 @@ const Home = () => {
                 </button>
               </div>
             </div>
-
             {/* RAW REFERENCE STRIP */}
             <div style={styles.rawBox}>
               <div style={styles.rawLabel}>Current values</div>
@@ -223,20 +219,17 @@ const Home = () => {
                 ))}
               </div>
             </div>
-
             {/* EDIT GRID */}
             <div style={styles.grid}>
               {keys.map((key) => {
                 const isKey = key === KEY_COLUMN;
                 const options = DROPDOWNS[key];
-
                 return (
                   <label key={key} style={styles.field}>
                     <span style={styles.label}>
                       {key}
                       {isKey && <span style={styles.tag}>key</span>}
                     </span>
-
                     {options ? (
                       <select
                         style={styles.select}
